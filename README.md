@@ -1,101 +1,94 @@
 
-# Employee Project
+# Employee Management API
 
-A Django-based Employee Management System for handling employees, departments, attendance, performance, and user authentication with JWT.
+A Django REST Framework application for managing employees, departments, attendance, performance reviews, JWT authentication, and dashboard reporting.
 
-### 1. **Clone the Repository**
+## Highlights
+
+- Employee and department CRUD APIs
+- Attendance and performance modules
+- JWT registration, login, and token refresh
+- Department employee-count dashboard endpoint
+- Swagger and ReDoc API documentation
+- Environment-based configuration with a safe local SQLite fallback
+- Basic API test coverage for authenticated reporting
+
+## Tech Stack
+
+- Python
+- Django 5
+- Django REST Framework
+- Simple JWT
+- django-filter
+- drf-yasg
+- PostgreSQL or SQLite
+
+## Getting Started
 
 ```bash
-cd ~/Documents
 git clone https://github.com/princechandrasingh/employee_project.git
 cd employee_project
-```
-
-### 2. **Set Up a Virtual Environment**
-
-```bash
 python3 -m venv venv
 source venv/bin/activate
-```
-
-### 3. **Install Dependencies**
-
-```bash
 pip install -r requirements.txt
-```
-
-### 4. **Apply Migrations**
-
-```bash
+cp .env.example .env
 python manage.py migrate
-```
-
-### 5. **Create a Superuser (for Admin Panel)**
-
-```bash
 python manage.py createsuperuser
-```
-
-### 6. **Run the Development Server**
-
-```bash
 python manage.py runserver
 ```
 
-### 7. **Access the Application**
+The app defaults to SQLite for local setup. To use PostgreSQL, set `DATABASE_URL` in `.env`.
 
-- **Admin Panel:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
-- **Dashboard:** [http://127.0.0.1:8000/dashboard/](http://127.0.0.1:8000/dashboard/)
-- **API Docs:** [http://127.0.0.1:8000/swagger/](http://127.0.0.1:8000/swagger/)
-- **Redoc:** [http://127.0.0.1:8000/redoc/](http://127.0.0.1:8000/redoc/)
+## Useful URLs
 
----
+| URL | Purpose |
+| --- | --- |
+| `http://127.0.0.1:8000/admin/` | Django admin |
+| `http://127.0.0.1:8000/dashboard/` | Department dashboard |
+| `http://127.0.0.1:8000/swagger/` | Swagger docs |
+| `http://127.0.0.1:8000/redoc/` | ReDoc docs |
 
-## 📚 Features
+## Main API Endpoints
 
-- Employee & Department CRUD operations
-- User Registration with JWT authentication
-- Department-wise Employee Bar Chart (dashboard)
-- Attendance & Performance modules
-- Django Admin Panel for management
-- API endpoints for integration
-- Swagger & Redoc for API documentation
+| Endpoint | Description |
+| --- | --- |
+| `/api/` | API root |
+| `/api/register/` | User registration |
+| `/api/token/` | Get JWT access and refresh tokens |
+| `/api/token/refresh/` | Refresh JWT access token |
+| `/api/employees/` | Employee CRUD |
+| `/api/departments/` | Department CRUD |
+| `/api/attendance/` | Attendance CRUD |
+| `/api/performance/` | Performance CRUD |
+| `/api/charts/department-employee-count/` | Authenticated dashboard data |
 
----
+## Example Request
 
-## 🛠️ Main API Endpoints
-
-| Endpoint                                             | Description                          |
-|------------------------------------------------------|--------------------------------------|
-| `/api/`                                              | API root                             |
-| `/api/register/`                                     | User registration (JWT)              |
-| `/api/token/`, `/api/token/refresh/`                 | Obtain/refresh JWT tokens            |
-| `/api/charts/department-employee-count/`             | Bar graph data (auth required)       |
-| `/dashboard/`                                        | Department bar chart dashboard       |
-
----
-
-## 🔑 Admin Credentials
-
-- Create your own admin credentials using `python manage.py createsuperuser`.
-
----
-
-## ✨ Example Usage
-
-**Get department employee counts (with JWT):**
 ```bash
-curl -X GET http://127.0.0.1:8000/api/charts/department-employee-count/   -H "Authorization: Bearer <your-access-token>"
+curl -X GET http://127.0.0.1:8000/api/charts/department-employee-count/ \
+  -H "Authorization: Bearer <your-access-token>"
 ```
 
----
+## Run Tests
 
-## 📝 Author
+```bash
+python manage.py test
+```
 
-- [princechandrasingh](https://github.com/princechandrasingh)
+## Project Structure
 
----
+```text
+employee_project/
+|-- attendance/
+|-- employees/
+|-- performance/
+|-- templates/
+|-- employee_project/
+|-- manage.py
+|-- requirements.txt
+`-- .env.example
+```
 
-## 📝 License
+## Portfolio Notes
 
-This project is for internal/test/demo use only.
+This project demonstrates backend API design, authentication, Django admin usage, relational modeling, API documentation, and environment-based configuration.
